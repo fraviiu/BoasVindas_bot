@@ -8,6 +8,7 @@ class TelegramController extends BaseController
     protected $telegram;
     protected $msg_self;
     protected $msg_start;
+    protected $hi = ['Olá', 'Opa', 'Salve salve', 'Fala aí', 'E aí'];
 
     public function __construct()
     {
@@ -58,9 +59,8 @@ class TelegramController extends BaseController
 
     private function randomHi()
     {
-        $say = ['Olá', 'Opa', 'Salve salve', 'Fala aí', 'E aí'];
-        $key = array_rand($say, 2);
-        return $say[$key[0]];
+        $key = array_rand($this->hi, 2);
+        return $this->hi[$key[0]];
     }
 
     private function sendHello($data)
