@@ -14,7 +14,8 @@ php composer update
 
 Atualize o arquivo ".env"
 ```
-TELEGRAM_BOT_TOKEN=<seu token>
+TELEGRAM_BOT_TOKEN=<token>
+TELEGRAM_BOT_WEBHOOK=https://<url>/webhook
 ```
 
 Atualize o arquivo "app/Http/Controllers/TelegramController.php"
