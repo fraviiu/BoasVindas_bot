@@ -18,7 +18,4 @@ TELEGRAM_BOT_TOKEN=<token>
 TELEGRAM_BOT_WEBHOOK=https://<url>/webhook
 ```
 
-Atualize o arquivo "app/Http/Controllers/TelegramController.php"
-```php
-$this->telegram->setWebhook(['url' => 'https://setyourwebhook']);
-```
+Abra o URL de onde você está rodando o Laravel para atualizar o webhook (lembrando que definimos isto no routes.php)
