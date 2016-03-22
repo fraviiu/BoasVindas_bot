@@ -9,7 +9,7 @@ http://telegram.me/BoasVindas_bot
 ## Depois de clonar este repositório
 Terminal:
 ```bash
-php composer update
+php composer self-update; php composer update
 ```
 
 Atualize o arquivo ".env"
