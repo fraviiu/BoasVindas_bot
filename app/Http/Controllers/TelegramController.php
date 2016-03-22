@@ -13,10 +13,15 @@ class TelegramController extends BaseController
     public function __construct()
     {
         $this->telegram     = new Api(env('TELEGRAM_BOT_TOKEN'));
+		self::setWebhook();
         $this->msg_self     = 'Olá, eu sou o @' . self::getBotUsername() . ".\nQuando este grupo receber um novo membro, darei boas vindas a ele 😉";
         $this->msg_start    = "Vamos começar?\nPara que eu possa receber os novos membros em seu grupo, basta me adicionar lá 😄 É só clicar:\n\nhttp://telegram.me/".self::getBotUsername()."?startgroup=1";
-        //$this->telegram->setWebhook(['url' => 'https://setyourwebhook']);
     }
+
+	public function setWebhook()
+	{
+		$this->telegram->setWebhook(['url' => env('TELEGRAM_BOT_WEBHOOK')]);
+	}
 
     private function getBotUsername()
     {
@@ -25,37 +30,48 @@ class TelegramController extends BaseController
 
     public function postWebhook()
     {
-        $update     = $this->telegram->getWebhookUpdates();
-        $message    = $update->getMessage();
-        $chat       = $message->getChat();
-        $from       = $message->getNewChatParticipant();
+        $this->update     = $this->telegram->getWebhookUpdates();
+        $this->message    = $this->update->getMessage();
+        $this->chat       = $this->message->getChat();
+        $this->from       = $this->message->getNewChatParticipant();
 
-        $data['chat_id']    = $chat->getId();
-        $data['group']      = $chat->getTitle();
+        $this->t_chatId		= $this->chat->getId();
+        $this->t_chatTitle	= $this->chat->getTitle();
 
-        if ($from !== NULL) {
-            $from_name      = "{$from->getFirstName()} {$from->getLastName()}";
-            $from_user      = $from->getUsername();
-            $data['name']   = ($from_user !== NULL) ? "{$from_name} (@{$from_user})" : $from_name;
-
-            if ($from_user == self::getBotUsername()) {
-                $this->telegram->sendMessage([
-                    'chat_id'       => $data['chat_id'],
-                    'text'          => $this->msg_self
-                ]);
-            } else {
-                self::sendHello($data);
-            }
-        }
-
-        if (strpos($message->getText(), "/start") === 0 AND $chat->getTitle() == NULL) {
-            $this->telegram->sendMessage([
-                'chat_id'                   => $data['chat_id'],
-                'disable_web_page_preview'  => true,
-                'text'                      => $this->msg_start
-            ]);
-        }
+		self::processMessage();
     }
+
+	private function processMessage()
+	{
+		if ($this->from !== NULL) {
+			$from_name 	= "{$this->from->getFirstName()} {$this->from->getLastName()}";
+			$from_user 	= $this->from->getUsername();
+			if ($from_user !== NULL) $from_name .= " (@{$from_user})";
+
+			$hello = self::randomHi() . ' ' . $from_name . "\nSeja bem vindo(a) ao grupo ''{$this->t_chatTitle}''!";
+
+			$this->t_Text = ($from_user == self::getBotUsername()) ? $this->msg_self : $hello;
+		}
+
+		if (strpos($this->message->getText(), "/start") === 0 AND $this->t_chatTitle == NULL) {
+			$this->t_Text = $this->msg_start;
+		}
+
+		if (isset($this->t_Text)) {
+			self::sendMessage();
+		}
+	}
+
+	private function sendMessage()
+	{
+		self::sendActionTyping();
+
+		$this->telegram->sendMessage([
+			'chat_id' 					=> $this->t_chatId,
+			'text'						=> $this->t_Text,
+			'disable_web_page_preview'	=> TRUE
+		]);
+	}
 
     private function randomHi()
     {
@@ -63,20 +79,10 @@ class TelegramController extends BaseController
         return $this->hi[$key[0]];
     }
 
-    private function sendHello($data)
-    {
-        self::sendActionTyping($data['chat_id']);
-
-        $this->telegram->sendMessage([
-            'chat_id'   => $data['chat_id'],
-            'text'      => self::randomHi() . ' ' . $data['name'] . "\nSeja bem vindo(a) ao grupo \"{$data['group']}\"!"
-        ]);
-    }
-
-    private function sendActionTyping($chat_id)
+    private function sendActionTyping()
     {
         $this->telegram->sendChatAction([
-            'chat_id'   => $chat_id,
+            'chat_id'   => $this->t_chatId,
             'action'    => 'typing'
         ]);
     }
