@@ -26,3 +26,7 @@ Abra o URL de onde você está rodando o Laravel para atualizar o webhook (lembr
 ### Configure seu bot no [@BotFather](https://telegram.me/BotFather)
 - /setprivacy: Disable
 - /setjoingroups: Enable
+
+# Precisa de ajuda?
+- [Assista o tutorial](https://youtu.be/9u8_EZO4XMs)
+- [Entre em contato](https://telegram.me/jaonoctus)
