@@ -20,10 +20,10 @@ class TelegramController extends BaseController
 
   public function setWebhook()
   {
-		$this->telegram->setWebhook(['url' => env('TELEGRAM_BOT_WEBHOOK')]);
-	}
-	
-	private function getBotUsername()
+    $this->telegram->setWebhook(['url' => env('TELEGRAM_BOT_WEBHOOK')]);
+  }
+  
+  private function getBotUsername()
   {
     return $this->telegram->getMe()->getUsername();
   }
