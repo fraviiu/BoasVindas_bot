@@ -8,14 +8,17 @@ http://telegram.me/BoasVindas_bot
 
 ## Depois de clonar este repositório
 Terminal:
-```bash
-php composer self-update; php composer update
+```shell
+php composer self-update
+php composer install
+cp .env.example .env
+php artisan key:generate
 ```
 
 Atualize o arquivo ".env"
 ```
-TELEGRAM_BOT_TOKEN=<token>
-TELEGRAM_BOT_WEBHOOK=https://<url>/webhook
+TELEGRAM_BOT_TOKEN=token
+TELEGRAM_BOT_WEBHOOK=https://url/webhook
 ```
 
 Abra o URL de onde você está rodando o Laravel para atualizar o webhook (lembrando que definimos isto no routes.php)
