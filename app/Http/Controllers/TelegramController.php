@@ -7,7 +7,7 @@ class TelegramController extends BaseController
 {
   protected $telegram;
   protected $msg_self;
-   protected $msg_start;
+  protected $msg_start;
   protected $hi = ['Olá', 'Opa', 'Salve salve', 'Fala aí', 'E aí'];
 
   public function __construct()
