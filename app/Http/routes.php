@@ -11,4 +11,4 @@
 |
 */
 Route::get('/', 'TelegramController@setWebhook');
-Route::post('webhook',        'TelegramController@postWebhook');
+Route::post('webhook', 'TelegramController@postWebhook');
