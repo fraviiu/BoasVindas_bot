@@ -5,6 +5,7 @@ This Telegram Bot welcomes the new members of their group (in Portuguese-BR).
 
 > Current Build Status
 
+[![Build Status](https://travis-ci.org/JaoNoctus/BoasVindas_bot.svg?branch=master)](https://travis-ci.org/JaoNoctus/BoasVindas_bot)
 [![StyleCI](https://styleci.io/repos/48139714/shield)](https://styleci.io/repos/48139714)
 
 ## Support the project
