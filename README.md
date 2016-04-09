@@ -3,6 +3,10 @@ This Telegram Bot welcomes the new members of their group (in Portuguese-BR).
 
 [Readme em Português](https://github.com/JaoNoctus/BoasVindas_bot/blob/master/README-pt_BR.md)
 
+> Current Build Status
+
+[![StyleCI](https://styleci.io/repos/48139714/shield)](https://styleci.io/repos/48139714)
+
 ## Support the project
 [![Support the project](host1plus.gif)](https://affiliates.host1plus.com/ref/jaonoctus/a3ee1c84.html)
 
