@@ -29,7 +29,8 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-### 2. The ".env" file
+### 2. Environment Variables
+at `.env` file, for example
 ```
 TELEGRAM_BOT_TOKEN=token
 TELEGRAM_BOT_WEBHOOK=https://url/webhook
